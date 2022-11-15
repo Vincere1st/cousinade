@@ -3,8 +3,10 @@ import { defineNuxtRouteMiddleware, navigateTo, useProfile, useSupabaseUser } fr
 export default defineNuxtRouteMiddleware(async () => {
   const user = useSupabaseUser()
   const userProfile = useProfile()
-  if (!userProfile.profile.value.password_updated.password_update) {
-    return navigateTo('/password')
+  if (userProfile && userProfile.profile.value) {
+    if (!userProfile.profile.value.password_updated.password_update) {
+      return navigateTo('/password')
+    }
   }
   if (!user.value) {
     return navigateTo('/login')
