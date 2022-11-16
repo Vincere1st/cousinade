@@ -12,30 +12,32 @@
     >
       <v-col cols="6">
         <v-card>
-          <v-card-title>
+          <v-card-title class="mb-5">
             {{ title }}
           </v-card-title>
           <v-card-text>
-            <v-row v-if="description" class="mb-5">
+            <v-row
+              v-if="description"
+              class="mb-5 ml-1"
+            >
               <p>
                 <span v-html="description"></span>
               </p>
             </v-row>
             <v-text-field
               v-if="showEmail"
-              :value="props.email"
+              v-model="emailInput"
               label="Email"
               :rules="[rules.email('Veuillez saisir un email valide.')]"
               prepend-icon="mdi-at"
-              @input="$emit('update:email', $event.target.value)"
+              @input="emit('email', $event.target.value)"
             />
             <v-text-field
-              :value="props.password"
               label="Mot de passe"
               type="password"
               :rules="[rules.minLength(8, 'Le mot de passe doit faire minimum 8 caratères'), rules.required()]"
               prepend-icon="mdi-lock"
-              @input="$emit('update:password', $event.target.value)"
+              @input="emit('password', $event.target.value)"
             />
           </v-card-text>
           <v-card-actions>
@@ -56,9 +58,14 @@
 
 <script setup lang="ts">
 import rules from 'rulingjs'
-import { ref } from 'vue'
+import { ref, defineEmits, watch } from 'vue'
 import { VForm } from 'vuetify/components'
+
 const props = defineProps({
+  email: {
+    type: String,
+    default: null
+  },
   buttonValue: {
     type: String,
     default: 'Se connecter'
@@ -71,28 +78,24 @@ const props = defineProps({
     type: String,
     default: null
   },
-  email: {
-    type: String,
-    default: null
-  },
-  password: {
-    type: String,
-    default: null
-  },
   showEmail: {
     type: Boolean,
     default: true
   }
 })
-const emit = defineEmits<{
-  (e: 'submit'): void
-  (e: 'update:email'): void
-  (e: 'update:password'): void
-}>()
+
+const emit = defineEmits(['submit', 'password', 'email'])
+const emailInput = ref<string | null>(null)
 const credentialsForm = ref()
 const valid = ref(false)
+
+watch(() => props.email, (email) => {
+  if (props.showEmail) {
+    emailInput.value = email
+  }
+}, { immediate: true })
+
 const submit = () => {
-  console.log('submit')
   emit('submit')
 }
 

@@ -10,12 +10,14 @@
     <p>{{ errorMessage }}</p>
   </v-snackbar>
   <login-card
-    v-model:password="password"
-    :title="'Bienvenue !'"
+    :title="'Bienvenue sur le site de la cousinade!'"
     :description="description"
     :button-value="'S\'enregistrer'"
-    :show-email="false"
     @submit="register"
+    @password="password = $event"
+    @email="email = $event"
+    :email="email"
+    :show-email="false"
   />
 </template>
 
@@ -26,6 +28,7 @@ import { navigateTo, useSupabaseClient } from '#imports'
 const { auth } = useSupabaseClient()
 const description = 'Nous allons créer ton compte, pour ce faire il faut que tu saisisse un mot de passe sécurisé ci-dessous (mini 8 caractères).<br />N\'oublie pas de le sauvegarder 😊'
 const password = ref<string | null>(null)
+const email = ref<string | null>(null)
 const errorMessage = ref<string | null>(null)
 const errorTitle = ref<string | null>(null)
 const openSnackar = ref(false)
@@ -41,23 +44,33 @@ const initialize = async () => {
       openSnackar.value = true
       errorTitle.value = 'Erreur.'
       errorMessage.value = 'Une erreur est survenue contacte l\'admin.'
+      console.error(response.error)
     }
   }
 }
 
 onMounted(() => {
+  console.log(process.env)
   initialize()
 })
 
 const register = async () => {
+  console.log('register')
   if (password.value !== null) {
-    // envoyer le password_updated à true sur la table profile
     const {
+      data,
       error
     } = await auth.updateUser({
-      password: password.value
+      password: password.value,
+      data: {
+        password_updated: true,
+        role: 'admin'
+      }
     })
+    console.log(error)
+    console.log(data)
     if (!error) {
+      console.log('navigate')
       navigateTo('')
     }
   }

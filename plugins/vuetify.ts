@@ -13,7 +13,7 @@ const darkTheme: ThemeDefinition = {
     'on-primary': '#371E73',
     secondary: '#CCC2DC',
     'on-secondary': '#332D41',
-    surface: '#1C1B1F',
+    surface: '#201e23',
     'on-surface': '#E6E1E5',
     error: '#F2B8B5',
     'on-error': '#601410'

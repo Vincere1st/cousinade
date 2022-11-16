@@ -1,44 +1,16 @@
 <template>
-  <v-row
-    justify="center"
-    align="center"
-  >
-    <v-col cols="6">
-      <v-card>
-        <v-card-title>
-          Connexion
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-model="email"
-            label="Email"
-            :rules="[rules.email('Veuillez saisir un email valide.')]"
-            prepend-icon="mdi-at"
-          />
-          <v-text-field
-            v-model="password"
-            label="Mot de passe"
-            prepend-icon="mdi-lock"
-            type="password"
-          />
-        </v-card-text>
-        <v-card-actions class="justify-center">
-          <v-btn
-            variant="flat"
-            color="primary"
-            @click="login"
-          >
-            <span class="mx-2">Se connecter</span>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <login-card
+    :title="'Bienvenue sur le site de la cousinade!'"
+    :button-value="'Se connecter'"
+    @submit="login"
+    @password="password = $event"
+    @email="email = $event"
+    :email="email"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import rules from 'rulingjs'
 import { navigateTo, useSupabaseClient, useSupabaseUser } from '#imports'
 
 const user = useSupabaseUser()
