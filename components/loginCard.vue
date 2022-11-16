@@ -21,7 +21,7 @@
               class="mb-5 ml-1"
             >
               <p>
-                <span v-html="description"></span>
+                <span v-html="description" />
               </p>
             </v-row>
             <v-text-field
@@ -58,7 +58,7 @@
 
 <script setup lang="ts">
 import rules from 'rulingjs'
-import { ref, defineEmits, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { VForm } from 'vuetify/components'
 
 const props = defineProps({

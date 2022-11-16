@@ -58,7 +58,6 @@ const register = async () => {
   console.log('register')
   if (password.value !== null) {
     const {
-      data,
       error
     } = await auth.updateUser({
       password: password.value,
@@ -67,10 +66,9 @@ const register = async () => {
         role: 'admin'
       }
     })
-    console.log(error)
-    console.log(data)
-    if (!error) {
-      console.log('navigate')
+    if (error) {
+      throw error
+    } else {
       navigateTo('')
     }
   }
