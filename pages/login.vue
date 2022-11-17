@@ -13,8 +13,8 @@
 import { ref, watchEffect } from 'vue'
 import { definePageMeta, navigateTo, useSupabaseClient, useSupabaseUser } from '#imports'
 definePageMeta({
-  layout: "login",
-});
+  layout: 'login'
+})
 
 const user = useSupabaseUser()
 const email = ref<string | null>(null)

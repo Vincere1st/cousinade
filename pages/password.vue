@@ -23,7 +23,10 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { navigateTo, useSupabaseClient } from '#imports'
+import { definePageMeta, navigateTo, useSupabaseClient } from '#imports'
+definePageMeta({
+  layout: 'login'
+})
 
 const { auth } = useSupabaseClient()
 const description = 'Nous allons créer ton compte, pour ce faire il faut que tu saisisse un mot de passe sécurisé ci-dessous (mini 8 caractères).<br />N\'oublie pas de le sauvegarder 😊'
