@@ -61,7 +61,7 @@ const rail = ref(true)
 const drawer = ref(true)
 const items: menu[] = [
   { title: 'Accueil', icon: 'mdi-home', path: '/' },
-  { title: 'Mon Profil', icon: 'mdi-account', path: '/account' },
+  { title: 'Mon Profil', icon: 'mdi-account', path: '/profil' },
   { title: 'Paramètres', icon: 'mdi-cog', path: '/parameter' }
 ]
 
