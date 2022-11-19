@@ -61,6 +61,18 @@
                     <!-- // TODO règle back sécurité, si owner ok , si admin ok-->
                   </v-text-field>
                 </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <!--                  // TODO manage avatar file-->
+                  <v-file-input />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <!-- // TODO manage theme color and store in database userProfile -->
+                  <v-switch />
+                </v-col>
               </v-row>
             </v-card-text>
             <v-card-actions class="justify-end">
