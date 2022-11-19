@@ -7,12 +7,16 @@ export default defineNuxtConfig({
     '@mdi/font/css/materialdesignicons.min.css',
     '@/assets/global.scss'
   ],
-  modules: [
-    '@nuxtjs/supabase'
-  ],
   build: {
     transpile: ['vuetify']
   },
+  runtimeConfig: {
+    public: {
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_KEY: process.env.SUPABASE_KEY
+    }
+  },
+  ssr: false,
   vite: {
     define: {
       'process.env.DEBUG': false

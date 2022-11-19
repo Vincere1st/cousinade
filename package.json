@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^11.0.0",
-    "@nuxtjs/supabase": "^0.2.5",
     "@types/lodash": "^4.14.188",
     "eslint": "^8.27.0",
     "eslint-plugin-vue": "^9.7.0",
@@ -20,6 +19,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",
+    "@supabase/supabase-js": "^2.1.0",
     "rulingjs": "^1.0.0",
     "vuetify": "^3.0.1"
   }

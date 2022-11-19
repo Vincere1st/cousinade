@@ -10,38 +10,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { definePageMeta, navigateTo, useSupabaseClient, useSupabaseUser } from '#imports'
+import { ref } from 'vue'
+import { definePageMeta, navigateTo, useSupabase } from '#imports'
+
 definePageMeta({
   layout: 'login'
 })
+const supabase = useSupabase()
 
-const user = useSupabaseUser()
 const email = ref<string | null>(null)
 const password = ref<string | null>(null)
-const { auth } = useSupabaseClient()
 const login = async () => {
   if (email.value && password.value) {
     const {
-      data,
+      user,
+      session,
       error
-    } = await auth.signInWithPassword({
+    } = await supabase.auth.signInWithPassword({
       email: email.value,
       password: password.value
     })
     if (error) {
+      // TODO manage error
       console.log(error)
     } else {
-      console.log(data)
+      navigateTo('/')
     }
   }
 }
-
-watchEffect(() => {
-  if (user.value) {
-    navigateTo('/')
-  }
-})
 </script>
 
 <style scoped>
