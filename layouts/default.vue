@@ -21,11 +21,11 @@
           </template>
         </v-list-item>
 
-        <v-divider />
+        <v-divider/>
 
         <v-list
           v-for="item in items"
-          :key="item.title"
+          :key="item.path"
           density="compact"
           nav
         >
@@ -38,7 +38,7 @@
       </v-navigation-drawer>
       <v-main>
         <v-container fluid>
-          <slot />
+          <slot/>
         </v-container>
       </v-main>
     </v-layout>
@@ -46,24 +46,15 @@
 </template>
 
 <script setup lang="ts">
-import { navigateTo } from '#imports'
-
-interface menu {
-  title: string,
-  icon: string,
-  path: string
-}
-
+import { navigateTo, useMenu } from '#imports'
 import { ref } from 'vue'
 import { NavigationFailure, RouteLocationRaw } from 'vue-router'
 
+const { items } = useMenu()
+
 const rail = ref(true)
 const drawer = ref(true)
-const items: menu[] = [
-  { title: 'Accueil', icon: 'mdi-home', path: '/' },
-  { title: 'Mon Profil', icon: 'mdi-account', path: '/profil' },
-  { title: 'Paramètres', icon: 'mdi-cog', path: '/parameter' }
-]
+
 
 const navigate = async (path: string): Promise<void | RouteLocationRaw | NavigationFailure> => {
   return navigateTo(path)
@@ -71,5 +62,8 @@ const navigate = async (path: string): Promise<void | RouteLocationRaw | Navigat
 </script>
 
 <style scoped>
+[v-cloak] {
+  display: none;
+}
 
 </style>

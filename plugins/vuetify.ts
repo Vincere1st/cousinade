@@ -17,6 +17,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     components,
     directives,
     blueprint: md3,
+    display: {
+      mobileBreakpoint: 'md',
+    },
     theme: {
       defaultTheme: 'darkTheme',
       themes: {

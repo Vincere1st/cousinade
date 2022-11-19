@@ -10,9 +10,6 @@
             <thead>
               <tr>
                 <th class="text-left">
-                  Famille
-                </th>
-                <th class="text-left">
                   Nom
                 </th>
                 <th class="text-left">
@@ -28,8 +25,7 @@
                 v-for="member in members"
                 :key="member.name"
               >
-                <td>{{ member.familly }}</td>
-                <td>{{ member.name }}</td>
+                <td>{{ member.lastname }}</td>
                 <td>{{ member.firstname }}</td>
                 <td>
                   <v-btn
@@ -58,13 +54,11 @@
 <script setup lang="ts">
 const members = [
   {
-    familly: '1',
-    name: 'name1',
+    lastname: 'name1',
     firstname: 'firstname1'
   },
   {
-    familly: '2',
-    name: 'name2',
+    lastname: 'name2',
     firstname: 'firstname2'
   }
 ]
@@ -72,6 +66,7 @@ const members = [
 const show = () => {
   console.log('show member')
 }
+
 </script>
 
 <style scoped>

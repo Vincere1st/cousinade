@@ -3,7 +3,8 @@
     <v-col
       v-for="house in houses"
       :key="house"
-      cols="3"
+      cols="12"
+      md="3"
     >
       <v-card height="200" />
     </v-col>
