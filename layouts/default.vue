@@ -21,7 +21,7 @@
           </template>
         </v-list-item>
 
-        <v-divider/>
+        <v-divider />
 
         <v-list
           v-for="item in items"
@@ -38,7 +38,7 @@
       </v-navigation-drawer>
       <v-main>
         <v-container fluid>
-          <slot/>
+          <slot />
         </v-container>
       </v-main>
     </v-layout>
@@ -54,7 +54,6 @@ const { items } = useMenu()
 
 const rail = ref(true)
 const drawer = ref(true)
-
 
 const navigate = async (path: string): Promise<void | RouteLocationRaw | NavigationFailure> => {
   return navigateTo(path)

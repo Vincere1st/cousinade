@@ -26,6 +26,7 @@ import { navigateTo,useMenu } from '#imports'
 import { ref } from 'vue'
 import { NavigationFailure, RouteLocationRaw } from 'vue-router'
 const { items } = useMenu()
+const tab = ref(null)
 
 const navigate = async (path: string): Promise<void | RouteLocationRaw | NavigationFailure> => {
   return navigateTo(path)

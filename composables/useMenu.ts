@@ -18,7 +18,7 @@ export const items: menu[] = [
   }
 ]
 
-export function useMenu() {
+export function useMenu () {
   return {
     items
   }

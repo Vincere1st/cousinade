@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import rules from 'rulingjs'
+import rules from '~/utils/rulingjs'
 import { ref, watch } from 'vue'
 import { VForm } from 'vuetify/components'
 

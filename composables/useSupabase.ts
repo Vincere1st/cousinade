@@ -5,6 +5,7 @@ export const useSupabase = (): SupabaseClient => {
   const app = useNuxtApp()
 
   const supabase = app.$supabase
+
   if (!app.$supabase) {
     throw new Error('Supabase Not Initialized Properly')
   }
