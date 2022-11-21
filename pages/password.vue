@@ -1,19 +1,19 @@
 <template>
-  <v-snackbar
-    vertical
-    :model-value="openSnackar"
-    :color="'error'"
-  >
-    <div class="text-subtitle-1 pb-2">
-      {{ errorTitle }}
-    </div>
-    <p>{{ errorMessage }}</p>
-  </v-snackbar>
+  <!--  <v-snackbar-->
+  <!--    vertical-->
+  <!--    :model-value="openSnackar"-->
+  <!--    :color="'error'"-->
+  <!--  >-->
+  <!--    <div class="text-subtitle-1 pb-2">-->
+  <!--      {{ errorTitle }}-->
+  <!--    </div>-->
+  <!--    <p>{{ errorMessage }}</p>-->
+  <!--  </v-snackbar>-->
   <v-form
     v-model="formValid"
     ref="form"
   >
-    <v-card>
+    <v-card class="pa-2 ma-2">
       <v-card-title>
         Bienvenue sur le site de la cousinade
       </v-card-title>
@@ -90,12 +90,11 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="justify-end">
         <v-btn
           variant="flat"
           rounded="lg"
-          type="submit"
-          :disabled="formValid"
+          :disabled="!formValid"
           @click="register"
         >
           <span class="px-2">Sauvegarder</span>
@@ -106,11 +105,12 @@
 </template>
 
 <script setup lang="ts">
-import { definePageMeta, navigateTo, reactive, useSupabase, onMounted, ref, watch } from '#imports'
+import { definePageMeta, navigateTo, onMounted, reactive, ref, useSupabase } from '#imports'
 import type { VForm } from 'vuetify/components'
 import type { VTextField } from 'vuetify/components/'
 import rules from '~/utils/rulingjs'
 import { PasswordEnum } from '~/enums/userEnum'
+import { useSnackbar } from '~/composables/useSnackbar'
 
 definePageMeta({
   layout: 'login'
@@ -128,9 +128,7 @@ const repeatPassword = ref<string | null>(null)
 const showPassword = ref(PasswordEnum.password)
 const showRepeatPassword = ref(PasswordEnum.password)
 
-const openSnackar = ref(false)
-const errorTitle = ref<string | null>(null)
-const errorMessage = ref<string | null>(null)
+const snackbar = useSnackbar()
 
 const member = reactive({
   lastname: null,
@@ -141,16 +139,20 @@ const member = reactive({
 const initialize = async () => {
   const response = await supabase.auth.initialize()
   if (response.error) {
+    const color = 'error'
+    const icon = 'mdi-alert'
+    let title = 'Erreur.'
+    let message = 'Une erreur est survenue contacte l\'admin.'
     if (response.error.message.includes('token is expired') || response.error.message.includes('has expired')) {
-      openSnackar.value = true
-      errorTitle.value = 'Erreur de lien.'
-      errorMessage.value = 'Demande un nouveau lien à l\'admin.'
-    } else {
-      openSnackar.value = true
-      errorTitle.value = 'Erreur.'
-      errorMessage.value = 'Une erreur est survenue contacte l\'admin.'
-      console.error(response.error)
+        title = 'Erreur de lien.',
+        message =  'Demande un nouveau lien à l\'admin.'
     }
+    snackbar.setSnackbarEntry({
+      color,
+      icon,
+      title,
+      message
+    })
   }
 }
 
@@ -174,10 +176,14 @@ const tooglePassword = (passwordTarget: string) => {
 
 
 const register = async () => {
-  console.log('register')
   if (password.value !== null && repeatPassword.value !== null) {
     if (password.value !== repeatPassword.value) {
-        // TODO Snackbar
+      snackbar.setSnackbarEntry({
+        color: 'error',
+        icon: 'mdi-alert',
+        title: 'Erreur',
+        message: 'Les mots de passe ne sont pas identiques!'
+      })
     } else {
       const {
         error

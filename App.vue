@@ -1,4 +1,5 @@
 <template>
+  <snackbar class="global-snackbar" />
   <NuxtLayout :name="layout">
     <NuxtPage />
   </NuxtLayout>
@@ -36,3 +37,9 @@ onBeforeMount(async () => {
   }
 })
 </script>
+
+<style scoped>
+.global-snackbar {
+  z-index: 999;
+}
+</style>
