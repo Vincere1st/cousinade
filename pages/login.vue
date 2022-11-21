@@ -17,24 +17,43 @@ definePageMeta({
   layout: 'login'
 })
 const supabase = useSupabase()
-
 const email = ref<string | null>(null)
 const password = ref<string | null>(null)
 const login = async () => {
   if (email.value && password.value) {
-    const {
-      user,
-      session,
-      error
-    } = await supabase.auth.signInWithPassword({
+    const
+    { data: { user }, error } = await supabase.auth.signInWithPassword({
       email: email.value,
       password: password.value
     })
     if (error) {
       // TODO manage error
-      console.log(error)
-    } else {
-      navigateTo('/')
+      if(error.message === 'Invalid login credentials') {
+
+      }
+    } else if( user) {
+      try {
+        const {
+          data,
+          error,
+          status
+        } = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+          .single()
+
+        if (error && status !== 406) {
+          throw error
+        }
+        if (data) {
+          console.log(data)
+        }
+      } catch (error) {
+        navigateTo('/member')
+      } finally {
+        navigateTo('')
+      }
     }
   }
 }

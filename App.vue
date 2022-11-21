@@ -7,11 +7,29 @@
 import { useDisplay, useTheme } from 'vuetify'
 import { onBeforeMount } from '#imports'
 import localStorage from '@supabase/gotrue-js/src/lib/local-storage'
-const theme = useTheme()
-const { mobile } = useDisplay()
-const layout = mobile.value ? 'mobile' : 'default'
+import { ref, watch } from 'vue'
+const layout = ref('default')
 
-onBeforeMount(async ()=> {
+const theme = useTheme()
+
+const { mobile } = useDisplay()
+
+const defineLayout = ()=> {
+  if (mobile.value) {
+    console.log('mobile')
+    layout.value ='mobile'
+  } else {
+    console.log('desktop')
+    layout.value = 'default'
+  }
+}
+
+watch(mobile, () => {
+  defineLayout()
+})
+
+onBeforeMount(async () => {
+  defineLayout()
   const userTheme = await localStorage.getItem('themeColor')
   if (userTheme) {
     theme.global.name.value = userTheme

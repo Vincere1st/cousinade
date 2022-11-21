@@ -10,23 +10,26 @@
     </v-col>
   </v-row>
 </template>
-<script setup>
+<script setup lang="ts">
+import { definePageMeta } from '#imports'
+
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
+  layout: 'default'
 })
 
 const houses = [
-    {
-      picture: 'picture1',
-      name: 'house1',
-      town: 'Town1',
-      description: 'description1'
-    },
-    {
-      picture: 'picture2',
-      name: 'house2',
-      town: 'Town2',
-      description: 'description2'
-    }
+  {
+    picture: 'picture1',
+    name: 'house1',
+    town: 'Town1',
+    description: 'description1'
+  },
+  {
+    picture: 'picture2',
+    name: 'house2',
+    town: 'Town2',
+    description: 'description2'
+  }
 ]
 </script>

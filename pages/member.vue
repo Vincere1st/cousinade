@@ -89,6 +89,7 @@
                   <v-btn
                     variant="flat"
                     rounded="lg"
+                    type="submit"
                     :disabled="userFormValid"
                     @click="sendUserInfo"
                   >
@@ -155,6 +156,7 @@
                   <v-btn
                     variant="flat"
                     rounded="lg"
+                    type="submit"
                     :disabled="passwordFormValid"
                     @click="sendNewPassword"
                   >
@@ -188,7 +190,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from '#imports'
+import { reactive, ref, useSupabase } from '#imports'
 import { PasswordEnum } from '~/enums/userEnum'
 import rules from '~/utils/rulingjs'
 import type { VForm } from 'vuetify/components'
@@ -237,11 +239,9 @@ const tooglePassword = (passwordTarget: string) => {
 }
 
 const sendUserInfo = async () => {
-  // TODO voir le typage de la ref et la validation du formulaire
   if (userForm.value) {
     const { valid } = await userForm.value.validate()
     if (valid) {
-      // TODO send request
     }
   }
 }

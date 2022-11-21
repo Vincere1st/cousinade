@@ -35,6 +35,18 @@
             @click.stop="navigate(item.path)"
           />
         </v-list>
+        <template #append>
+          <v-list
+            density="compact"
+            nav
+          >
+            <v-list-item
+              prepend-icon="mdi-logout"
+              title="Déconnexion"
+              @click="logout"
+            />
+          </v-list>
+        </template>
       </v-navigation-drawer>
       <v-main>
         <v-container fluid>
@@ -46,18 +58,28 @@
 </template>
 
 <script setup lang="ts">
-import { navigateTo, useMenu } from '#imports'
+import { navigateTo, useMenu, useSupabase } from '#imports'
 import { ref } from 'vue'
 import { NavigationFailure, RouteLocationRaw } from 'vue-router'
 
-const { items } = useMenu()
-
-const rail = ref(true)
 const drawer = ref(true)
+const rail = ref(true)
+
+const { items } = useMenu()
 
 const navigate = async (path: string): Promise<void | RouteLocationRaw | NavigationFailure> => {
   return navigateTo(path)
 }
+
+const logout = () => {
+  try {
+    useSupabase().auth.signOut()
+  } finally {
+    navigateTo('/login')
+  }
+}
+
+
 </script>
 
 <style scoped>
