@@ -1,10 +1,15 @@
-# Nuxt 3 Minimal Starter
+# Cousinade
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Site pour aider à l'organisation d'une cousinade.
+
+## Techno
+Vue3 et Vuetify3 en frontend
+
+Supabase en backend
 
 ## Setup
 
-Make sure to install the dependencies:
+Installation des dépendences:
 
 ```bash
 # yarn
@@ -12,10 +17,6 @@ yarn install
 
 # npm
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
-```
 
 ## Development Server
 
@@ -32,11 +33,3 @@ Build the application for production:
 ```bash
 npm run build
 ```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
